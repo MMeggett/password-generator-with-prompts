@@ -6,45 +6,78 @@ var generateBtn = document.querySelector("#generate");
 
 
 function generatePassword() {
-    let passwordLength = Number(prompt("How long would you like your password to be?"));
-    // let options = prompt("What type of characters do you want in your password?");
+    // Password prompts
+    let passwordLength = Number(prompt("How many characters would you like your password to have?", "8-128"));
+    let upperPrompt = prompt("Would you like to include uppercase characters?", "Yes/No");
+    let lowerPrompt = prompt("Would you like to include lower case characters?", "Yes/No");
+    let numPrompt = prompt("Would you like to include numerical characters?", "Yes/No");
+    let specialPrompt = prompt("Would you like to include special characters?", "Yes/No")
 
-    let testString = "A long time ago, in a galaxy far, far, away... A vast sea of stars serves as the backdrop for the main title. War drums echo through the heavens as a rollup slowly crawls into infinity.It is a period of civil war.Rebel spaceships, striking from a hidden base, have won their first "
-    let trimmedString = testString.substring(0, passwordLength);
+    // Available Characters
+    let password = document.querySelector("#password");
+    const upperCase = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    const lowerCase = ('abcdefghijklmnopqrstuvwxyz');
+    const numerals = ('0123456789');
+    const special = ("\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
 
-    // console.log(passwordLength);
-    // console.log(options);
+    // Function that shuffles chosen characters
+    String.prototype.shuffle = function () {
+        var a = this.split(""),
+            n = a.length;
 
+        for (var i = n - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+        }
+        return a.join("");
+    }
+
+    // If uppercase is selected make those characters available
+    switch (upperPrompt) {
+        case "Yes":
+            password.append(upperCase);
+            break;
+        case "No":
+            break;
+    }
+    // If lowercase is selected make those characters available
+    switch (lowerPrompt) {
+        case "Yes":
+            password.append(lowerCase);
+            break;
+        case "No":
+            break;
+    }
+    // If numerals are selected make those characters available
+    switch (numPrompt) {
+        case "Yes":
+            password.append(numerals);
+            break;
+        case "No":
+            break;
+    }
+    // If special characters are selected make those characters available
+    switch (specialPrompt) {
+        case "Yes":
+            password.append(special);
+            break;
+        case "No":
+            break;
+    }
+
+    // Password Length Prompt
     if (passwordLength < 8) {
-        console.log(null)
+        document.getElementById("password").innerHTML = "Refresh and enter a number greater than 8 but less than 128."
     }
     else if (passwordLength > 128) {
-        console.log(null)
+        document.getElementById("password").innerHTML = "Refresh and enter a number greater than 8 but less than 128."
     }
     else {
-        console.log(trimmedString);
-        console.log(passwordLength);
-        console.log(testString);
-        console.log(testString.length);
-        document.getElementById("password").innerHTML = trimmedString;
+        let mainPass = password.value.shuffle();
+        document.getElementById("password").innerHTML = mainPass.substring(0, passwordLength);
     }
-    // document.getElementById("password").innerHTML = retVal;
-
-    // console.log(passwordLength);
-    // console.log(options);
-
-    // var charSets = {
-    //     lowercase: 'abcdefghijklmnopqrstuvwxyz',
-    //     uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-    //     numeric: '0123456789',
-    //     special: ' !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
-    // };
-    // var charSet = charSets[options.toLowerCase()] || charSets.lowercase;
-    // var retVal = "";
-    // for (var i = 0; i < passwordLength; i++) {
-    //     retVal += charSet.charAt(Math.floor(Math.random() * charSet.passwordLength));
-    // }
-    // return retVal;
 }
 
 // Add event listener to generate button
