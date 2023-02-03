@@ -8,7 +8,7 @@ This project was built with the intention of allowing users to make a secure pas
 
 Users enter a number between 8 and 128 to determine the length of the password. After choosing a length they are given a variety of prompts to determine the type of characters they want to have in their password. After answering all of the prompts a password is generated for the user.
 
-![alt text](assets/03-javascript-homework-demo.png)
+![alt text](Assets/03-javascript-homework-demo.png)
 
 ## Credits
 
